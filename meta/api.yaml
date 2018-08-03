@@ -1,0 +1,4 @@
+name: frost_number_geo
+language: python
+package: permamodel.components.frost_number_Geo
+class: FrostnumberGeoMethod

@@ -1,0 +1,44 @@
+{% set name = "pymt_frost_number_geo" %}
+{% set data = load_setup_py_data() %}
+{% set build = "0" %}
+
+package:
+  name: {{ name }}
+  version: {{ data.get('version') }}
+
+source:
+  path: ..
+
+build:
+  number: {{ build }}
+  script: python -m pip install --no-deps --ignore-installed .
+
+requirements:
+  host:
+    - python
+    - setuptools
+    - numpy 1.11.*
+    - cython
+    - model_metadata
+    - permamodel
+
+  run:
+    - python
+    - setuptools
+    - pymt
+    - permamodel
+
+test:
+  requires:
+    - bmi-tester
+  imports:
+    - pymt_frost_number_geo
+  commands:
+    - bmi-test pymt_frost_number_geo:FrostnumberGeoMethod --infile=$(mmd-stage FrostnumberGeoMethod .)
+
+about:
+  summary: PyMT plugin for frost_number_geo.
+  home: https://github.com/mcflugen/pymt_frost_number_geo
+  license: MIT license
+  license_file: LICENSE
+  dev_url: https://github.com/mcflugen/pymt_frost_number_geo
